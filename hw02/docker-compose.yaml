@@ -1,0 +1,21 @@
+services:
+  rabbitmq:
+    image: rabbitmq:4.1.3-management
+    container_name: rabbitmq_hw02
+    hostname: rabbitmq
+    restart: always
+    env_file:
+      - .env
+    environment:
+      RABBITMQ_DEFAULT_USER: $RABBIT_USERNAME
+      RABBITMQ_DEFAULT_PASS: $RABBIT_PASSWORD
+      RABBITMQ_DEFAULT_VHOST: $RABBIT_VIRTUAL_HOST
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - rabbitmq-network
+
+networks:
+  rabbitmq-network:
+    driver: bridge
