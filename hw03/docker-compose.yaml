@@ -1,0 +1,31 @@
+services:
+  rabbitmq:
+    image: rabbitmq:4.1.3-management
+    container_name: rabbitmq-stream
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+      - "15672:15672"
+      - "5552:5552"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      # Используем именованный volume вместо монтирования файлов
+      - rabbitmq-data:/var/lib/rabbitmq
+    command: |
+      sh -c "
+        rabbitmq-plugins enable rabbitmq_management rabbitmq_stream &&
+        rabbitmq-server
+      "
+    healthcheck:
+      test: rabbitmq-diagnostics -q status
+      interval: 10s
+      timeout: 5s
+      start_period: 10s
+      retries: 5
+volumes:
+  rabbitmq-data:
+networks:
+  rabbitmq-network:
+    driver: bridge

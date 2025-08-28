@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: rabbitmq-stream-consumer-minmax
+  messages:
+    encoding: utf-8
+  profiles:
+    active: dev
+
+rabbitmq:
+  stream:
+    host: ${RABBIT_ADDRESSES:localhost}
+    port: 5552
+    username: ${RABBIT_USERNAME:guest}
+    password: ${RABBIT_PASSWORD:guest}
+    stream-name: numbers-stream
+
+logging:
+  level:
+    root: info
