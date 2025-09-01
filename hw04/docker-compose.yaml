@@ -1,0 +1,23 @@
+services:
+  rabbitmq:
+    image: rabbitmq:4.1.3-management
+    container_name: rabbitmq-mqtt
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+      - "15672:15672"
+      - "5552:5552"
+      - "1883:1883"
+      - "15675:15675"
+    volumes:
+      - ./config/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+    command: "/bin/bash -c \"rabbitmq-plugins enable --offline rabbitmq_management rabbitmq_mqtt rabbitmq_web_mqtt rabbitmq_stream; rabbitmq-server\""
+    healthcheck:
+      test: rabbitmq-diagnostics -q status
+      interval: 10s
+      timeout: 5s
+      start_period: 10s
+      retries: 5
+networks:
+  rabbitmq-network:
+    driver: bridge
