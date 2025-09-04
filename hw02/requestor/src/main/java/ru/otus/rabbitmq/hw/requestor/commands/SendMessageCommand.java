@@ -15,9 +15,11 @@ import java.net.http.HttpResponse;
 @RequiredArgsConstructor
 public class SendMessageCommand {
 
+    private final HttpClient client = HttpClient.newHttpClient();
+
     @ShellMethod(value = "Send number of messages from Producer", key = "send")
     public void ProducerSendMessage(Integer numberOfMessages) {
-        try (HttpClient client = HttpClient.newHttpClient()) {
+        try (client) {
             for (int i = 0; i < numberOfMessages; i++) {
                 String body = "{\"id\": " +
                               i +
@@ -36,6 +38,5 @@ public class SendMessageCommand {
                         .join();
             }
         }
-
     }
 }

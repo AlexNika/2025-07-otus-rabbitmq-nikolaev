@@ -61,7 +61,10 @@ public class RabbitMqConfig {
 
     @Bean
     public Queue hw02Queue() {
-        return new Queue(HW02_QUEUE, true, false, false);
+        return QueueBuilder.durable(HW02_QUEUE)
+                .autoDelete()
+                .exclusive()
+                .build();
     }
 
     @Bean
