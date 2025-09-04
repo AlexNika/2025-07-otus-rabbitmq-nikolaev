@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: RabbitMqConsumerApp
+  messages:
+    encoding: utf-8
+  profiles:
+    active: dev
+  rabbitmq:
+    addresses: ${RABBIT_ADDRESSES:"localhost"}
+    username: ${RABBIT_USERNAME:guest}
+    password: ${RABBIT_PASSWORD:guest}
+    virtual-host: ${RABBIT_VIRTUAL_HOST:/}
+    publisher-confirm-type: correlated
+logging:
+  level:
+    root: error
+    ru.otus.rabbitmq.hw.replier.service: info
