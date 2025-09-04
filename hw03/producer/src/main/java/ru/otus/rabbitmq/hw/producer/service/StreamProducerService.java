@@ -36,8 +36,7 @@ public class StreamProducerService implements CommandLineRunner {
 
         log.info("Creating producer for stream: {}", streamName);
 
-        try (Environment env = environment;
-             Producer producer = environment.producerBuilder()
+        try (Producer producer = environment.producerBuilder()
                      .stream(streamName)
                      .name("producer-1")
                      .build()) {
@@ -46,7 +45,7 @@ public class StreamProducerService implements CommandLineRunner {
             CountDownLatch confirmationLatch = new CountDownLatch(1001);
             log.info("Starting to send numbers from 0 to 1000...");
             IntStream.rangeClosed(0, 1000).forEach(i -> {
-                final String message = String.valueOf(i);
+                String message = String.valueOf(i);
                 log.debug("Sending message: {}", message);
                 producer.send(
                         producer.messageBuilder().addData(message.getBytes()).build(),

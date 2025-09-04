@@ -20,8 +20,8 @@ import java.util.concurrent.atomic.AtomicLong;
 public class StreamAverageConsumerService implements CommandLineRunner {
 
     private final Environment environment;
-    private final AtomicInteger receivedCount = new AtomicInteger(0);
-    private final AtomicLong sum = new AtomicLong(0);
+    private final AtomicInteger receivedCount = new AtomicInteger();
+    private final AtomicLong sum = new AtomicLong();
     private volatile double currentAverage = 0.0;
 
     @Value("${rabbitmq.stream.stream-name}")
