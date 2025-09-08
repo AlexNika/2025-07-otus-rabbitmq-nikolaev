@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>MQTT Sensor Counter</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <h1>MQTT Sensor Message Counter</h1>
+
+    <div id="connectionStatus" class="connection-status disconnected">
+        WebSocket: Disconnected
+    </div>
+
+    <div class="panel">
+        <h2>Сумма сообщений от датчиков</h2>
+        <div class="counter-display">
+            <span id="messageCount">0</span>
+        </div>
+        <button type="button" id="resetBtn">Сбросить счетчик</button>
+    </div>
+
+    <div class="panel">
+        <h2>Тестовые сообщения</h2>
+        <form id="publishForm">
+            <div class="form-group">
+                <label for="topic">Topic:</label>
+                <input type="text" id="topic" name="topic" value="sensor/temperature" required>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" placeholder="Enter sensor data..." required>1</textarea>
+            </div>
+
+            <button type="submit">Send Sensor Data</button>
+            <button type="button" id="connectBtn">Connect to MQTT</button>
+        </form>
+    </div>
+
+    <div class="panel">
+        <h2>Received Messages Log</h2>
+        <div id="messages" class="messages">
+            <p id="noMessages">No messages received yet.</p>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+<script src="/js/mqtt-client.js"></script>
+</body>
+</html>
